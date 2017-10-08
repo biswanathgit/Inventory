@@ -5,6 +5,8 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
+import java.util.List;
+
 import biwanath.com.inventory.data.userrepository.User;
 import io.reactivex.Flowable;
 
@@ -14,7 +16,10 @@ import io.reactivex.Flowable;
 @Dao
 public interface ProductDao {
     @Query("SELECT * FROM products LIMIT 1")
-    Flowable<Product> getAllProduct();
+    Flowable<Product> getProduct();
+
+    @Query("SELECT * FROM products")
+    Flowable<List<Product>> getAllProduct();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertProduct(Product product);

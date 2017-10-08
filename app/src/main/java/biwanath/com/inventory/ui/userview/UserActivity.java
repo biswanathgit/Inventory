@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import biwanath.com.inventory.Injection;
 import biwanath.com.inventory.R;
-import biwanath.com.inventory.ui.ViewModelFactory;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -24,7 +23,7 @@ public class UserActivity extends AppCompatActivity {
 
     private Button mUpdateButton;
 
-    private ViewModelFactory mViewModelFactory;
+    private UserViewModelFactory mViewModelFactory;
 
     private UserViewModel mViewModel;
 
@@ -39,7 +38,7 @@ public class UserActivity extends AppCompatActivity {
         mUserNameInput = findViewById(R.id.user_name_input);
         mUpdateButton = findViewById(R.id.update_user);
 
-        mViewModelFactory = Injection.provideViewModelFactory(this);
+        mViewModelFactory = Injection.provideUserViewModelFactory(this);
         mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(UserViewModel.class);
         mUpdateButton.setOnClickListener(v -> updateUserName());
     }

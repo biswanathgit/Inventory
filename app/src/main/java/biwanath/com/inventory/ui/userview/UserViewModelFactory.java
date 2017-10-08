@@ -1,4 +1,4 @@
-package biwanath.com.inventory.ui;
+package biwanath.com.inventory.ui.userview;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -9,11 +9,11 @@ import biwanath.com.inventory.ui.userview.UserViewModel;
 /**
  * Factory for ViewModels
  */
-public class ViewModelFactory implements ViewModelProvider.Factory {
+public class UserViewModelFactory implements ViewModelProvider.Factory {
 
     private final UserDataSource mDataSource;
 
-    public ViewModelFactory(UserDataSource dataSource) {
+    public UserViewModelFactory(UserDataSource dataSource) {
         mDataSource = dataSource;
     }
 

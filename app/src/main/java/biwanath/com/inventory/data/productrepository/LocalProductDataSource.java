@@ -15,7 +15,7 @@ public class LocalProductDataSource implements ProductDataSource {
 
     @Override
     public Flowable<Product> getProduct() {
-        return mProductDao.getAllProduct();
+        return mProductDao.getProduct();
     }
 
     @Override

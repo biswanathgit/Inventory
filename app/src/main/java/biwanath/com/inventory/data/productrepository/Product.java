@@ -35,7 +35,6 @@ public class Product {
     }
 
     public void setProductId(@NonNull String productId) {
-        productId = UUID.randomUUID().toString();
         this.productId = productId;
     }
 

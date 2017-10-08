@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import biwanath.com.inventory.ui.productview.ProductActivity;
 import biwanath.com.inventory.ui.userview.UserActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(SplashScreenActivity.this, UserActivity.class);
+                Intent i = new Intent(SplashScreenActivity.this, ProductActivity.class);
                 startActivity(i);
                }
         },200);
