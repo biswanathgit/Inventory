@@ -1,39 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="biwanath.com.inventory.ui.productview.ProductActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/product_name"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_product_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="32sp"
-        tools:text="Hello World!"/>
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/product_name_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Product Name"/>
+    </android.support.v7.widget.RecyclerView>
 
-    <EditText
-        android:id="@+id/product_price_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Price"/>
-    <EditText
-        android:id="@+id/product_description_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Description"/>
     <Button
-        android:id="@+id/update_product"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:layout_marginTop="70dp"/>
-</LinearLayout>
+        android:id="@+id/btn_product_entry"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="Go"
+        android:textAllCaps="false"
+        android:elevation="4dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="15dp"/>
+</RelativeLayout>

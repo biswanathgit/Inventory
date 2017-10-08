@@ -35,7 +35,8 @@ public class Product {
     }
 
     public void setProductId(@NonNull String productId) {
-        this.productId = productId;
+
+        this.productId = UUID.randomUUID().toString();
     }
 
     public String getProductName() {

@@ -14,11 +14,11 @@ import io.reactivex.internal.operators.completable.CompletableFromAction;
  * Created by Biswanath Maity on 10/8/2017.
  */
 
-public class ProductViewModel extends ViewModel {
+public class ProductEntryViewModel extends ViewModel {
     private final ProductDataSource mProductDataSource;
     private Product mProduct;
 
-    public ProductViewModel(ProductDataSource mProductDataSource) {
+    public ProductEntryViewModel(ProductDataSource mProductDataSource) {
         this.mProductDataSource = mProductDataSource;
     }
 
@@ -42,6 +42,16 @@ public class ProductViewModel extends ViewModel {
                  mProduct.setProductName(productName);
              }
             mProductDataSource.insertOrUpdateProduct(mProduct);
+        });
+    }
+    public Completable insertProduct(final String productName,String description, long price) {
+        return new CompletableFromAction(() -> {
+           Product newProduct = new Product();
+           newProduct.setProductId(UUID.randomUUID().toString());
+           newProduct.setProductName(productName);
+           newProduct.setDescription(description);
+           newProduct.setProductPrice(price);
+            mProductDataSource.insertOrUpdateProduct(newProduct);
         });
     }
 }

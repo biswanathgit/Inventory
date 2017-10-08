@@ -1,5 +1,7 @@
 package biwanath.com.inventory.data.productrepository;
 
+import java.util.List;
+
 import io.reactivex.Flowable;
 
 /**
@@ -16,6 +18,11 @@ public class LocalProductDataSource implements ProductDataSource {
     @Override
     public Flowable<Product> getProduct() {
         return mProductDao.getProduct();
+    }
+
+    @Override
+    public Flowable<List<Product>> getAllProducts() {
+        return mProductDao.getAllProduct();
     }
 
     @Override

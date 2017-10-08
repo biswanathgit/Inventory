@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import biwanath.com.inventory.ui.productview.ProductActivity;
-import biwanath.com.inventory.ui.userview.UserActivity;
+import biwanath.com.inventory.ui.productview.ProductEntryActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -20,6 +20,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 Intent i = new Intent(SplashScreenActivity.this, ProductActivity.class);
                 startActivity(i);
+                finish();
                }
         },200);
     }

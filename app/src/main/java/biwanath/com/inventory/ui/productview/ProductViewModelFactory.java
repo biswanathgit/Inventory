@@ -4,8 +4,6 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import biwanath.com.inventory.data.productrepository.ProductDataSource;
-import biwanath.com.inventory.data.userrepository.UserDataSource;
-import biwanath.com.inventory.ui.userview.UserViewModel;
 
 
 /**
@@ -21,8 +19,11 @@ public class ProductViewModelFactory implements ViewModelProvider.Factory {
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(ProductViewModel.class)) {
-            return (T) new ProductViewModel(mProductDataSource);
+        if (modelClass.isAssignableFrom(ProductEntryViewModel.class)) {
+            return (T) new ProductEntryViewModel(mProductDataSource);
+        }
+        if (modelClass.isAssignableFrom(ShowProductViewModel.class)) {
+            return (T) new ShowProductViewModel(mProductDataSource);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

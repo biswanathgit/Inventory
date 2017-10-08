@@ -1,5 +1,7 @@
 package biwanath.com.inventory.data.productrepository;
 
+import java.util.List;
+
 import io.reactivex.Flowable;
 
 /**
@@ -9,6 +11,8 @@ import io.reactivex.Flowable;
 public interface ProductDataSource {
 
     Flowable<Product> getProduct();
+
+    Flowable<List<Product>> getAllProducts();
 
     void insertOrUpdateProduct(Product product);
 
