@@ -1,4 +1,4 @@
-package biwanath.com.inventory.ui.productview;
+package biwanath.com.inventory.ui.productview.productentry;
 
 import android.arch.lifecycle.ViewModel;
 
