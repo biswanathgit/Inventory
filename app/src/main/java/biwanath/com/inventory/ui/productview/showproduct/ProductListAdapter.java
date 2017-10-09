@@ -1,4 +1,4 @@
-package biwanath.com.inventory.ui.productview;
+package biwanath.com.inventory.ui.productview.showproduct;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import java.util.List;
-
 import biwanath.com.inventory.R;
 import biwanath.com.inventory.data.productrepository.Product;
 

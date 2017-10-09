@@ -1,4 +1,4 @@
-package biwanath.com.inventory.ui.productview;
+package biwanath.com.inventory.ui.productview.showproduct;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import java.util.List;
 import biwanath.com.inventory.Injection;
 import biwanath.com.inventory.R;
 import biwanath.com.inventory.data.productrepository.Product;
+import biwanath.com.inventory.ui.productview.ProductViewModelFactory;
+import biwanath.com.inventory.ui.productview.productentry.ProductEntryActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;

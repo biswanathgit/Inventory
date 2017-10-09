@@ -5,8 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import biwanath.com.inventory.ui.productview.ProductActivity;
-import biwanath.com.inventory.ui.productview.ProductEntryActivity;
+import biwanath.com.inventory.ui.productview.showproduct.ProductActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

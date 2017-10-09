@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import biwanath.com.inventory.data.productrepository.ProductDataSource;
+import biwanath.com.inventory.ui.productview.productentry.ProductEntryViewModel;
+import biwanath.com.inventory.ui.productview.showproduct.ShowProductViewModel;
 
 
 /**
