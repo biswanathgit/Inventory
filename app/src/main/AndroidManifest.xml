@@ -17,8 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.userview.UserActivity" />
-        <activity android:name=".ui.productview.ProductEntryActivity" />
-        <activity android:name=".ui.productview.ProductActivity"></activity>
+        <activity android:name=".ui.productview.productentry.ProductEntryActivity" />
+        <activity android:name=".ui.productview.showproduct.ProductActivity"></activity>
     </application>
 
 </manifest>
