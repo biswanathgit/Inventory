@@ -8,9 +8,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.UUID;
+import java.util.concurrent.Callable;
+
 import biwanath.com.inventory.Injection;
 import biwanath.com.inventory.R;
+import biwanath.com.inventory.data.productrepository.Product;
 import biwanath.com.inventory.ui.productview.ProductViewModelFactory;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -33,6 +42,8 @@ public class ProductEntryActivity extends AppCompatActivity {
 
     private final CompositeDisposable mDisposable = new CompositeDisposable();
 
+    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +54,8 @@ public class ProductEntryActivity extends AppCompatActivity {
         mProductDescriptionInput = findViewById(R.id.product_description_input);
         mProductPrice = findViewById(R.id.product_price_input);
         mUpdateButton = findViewById(R.id.update_product);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("product");
 
         mViewModelFactory = Injection.provideProductViewModelFactory(this);
         mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(ProductEntryViewModel.class);
@@ -66,42 +79,51 @@ public class ProductEntryActivity extends AppCompatActivity {
         mDisposable.clear();
     }
 
-
-    private void updateProductName() {
-        String productName = mProductNameInput.getText().toString();
-        if(!productName.trim().equals("")) {
-            // Disable the update button until the user name update has been done
-            mUpdateButton.setEnabled(false);
-
-            // Subscribe to updating the user name.
-            // Re-enable the button once the user name has been updated
-            mDisposable.add(mViewModel.updateProduct(productName)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(() -> {
-                                mUpdateButton.setEnabled(true);
-                                this.finish();
-                            },
-                            throwable -> Log.e(TAG, "Unable to update Product Name", throwable)));
-        }
-    }
-
-
     private void insertProduct() {
         String productName = mProductNameInput.getText().toString().trim();
         String productDec = mProductDescriptionInput.getText().toString().trim();
         String productPrice = mProductPrice.getText().toString().trim();
-        if(!productName.equals("")&&!productPrice.equals("")) {
+
+        if (!productName.equals("") && !productPrice.equals("")) {
             mUpdateButton.setEnabled(false);
 
-            mDisposable.add(mViewModel.insertProduct(productName,productDec,Long.valueOf(productPrice))
+            String uuid = UUID.randomUUID().toString();
+            mDisposable.add( mViewModel.insertProduct(uuid,productName, productDec, Long.valueOf(productPrice))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(() -> {mUpdateButton.setEnabled(true);
+                    .subscribe(() -> {
+                                mUpdateButton.setEnabled(true);
+                                insertProductToFirebase(uuid,productName, productDec, Long.valueOf(productPrice));
                                 this.finish();
                             },
                             throwable -> Log.e(TAG, "Unable to update Product Name", throwable)));
         }
 
+    }
+
+    private String insertProductToFirebase(String productId,String productName,String description, long price) {
+        Product newProduct = new Product();
+        newProduct.setProductId(productId);
+        newProduct.setProductName(productName);
+        newProduct.setDescription(description);
+        newProduct.setProductPrice(price);
+        mDatabase.push().setValue(newProduct, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                Log.d(TAG, "onComplete: " + productId +" fb key "+databaseReference.getKey());
+                if(databaseReference.getKey() != null){
+                    updateProductWithFirebaseKey(productId,databaseReference.getKey());
+                }
+            }
+        });
+        return "msg";
+    }
+
+    private void updateProductWithFirebaseKey(String id,String fbkey) {
+        mDisposable.add(mViewModel.updateProductWithFbkey(id,fbkey)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {Log.d(TAG, "updateProductWithFirebaseKey: " + "key updated");},
+                        throwable -> Log.e(TAG, "Unable to update Product Name", throwable)));
     }
 }

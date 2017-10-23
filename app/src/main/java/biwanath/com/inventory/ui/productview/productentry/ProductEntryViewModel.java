@@ -1,8 +1,7 @@
 package biwanath.com.inventory.ui.productview.productentry;
 
 import android.arch.lifecycle.ViewModel;
-
-import java.util.UUID;
+import android.util.Log;
 
 import biwanath.com.inventory.data.productrepository.Product;
 import biwanath.com.inventory.data.productrepository.ProductDataSource;
@@ -10,11 +9,14 @@ import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.internal.operators.completable.CompletableFromAction;
 
+import static biwanath.com.inventory.ui.productview.showproduct.ProductActivity.TAG;
+
 /**
  * Created by Biswanath Maity on 10/8/2017.
  */
 
 public class ProductEntryViewModel extends ViewModel {
+    public static final String TAG = "ProductEntryViewModel";
     private final ProductDataSource mProductDataSource;
     private Product mProduct;
 
@@ -31,27 +33,24 @@ public class ProductEntryViewModel extends ViewModel {
                 });
     }
 
-    public Completable updateProduct(final String productName) {
+    public Completable insertProduct(final String productId,String productName,String description, long price) {
         return new CompletableFromAction(() -> {
-             if(mProduct== null){
-                 mProduct = new Product();
-                 mProduct.setProductId(UUID.randomUUID().toString());
-                 mProduct.setProductName(productName);
-             }else {
-                 mProduct.setProductId(mProduct.getProductId());
-                 mProduct.setProductName(productName);
-             }
-            mProductDataSource.insertOrUpdateProduct(mProduct);
+            Product newProduct = new Product();
+            newProduct.setProductId(productId);
+            newProduct.setProductName(productName);
+            newProduct.setDescription(description);
+            newProduct.setProductPrice(price);
+            long t =mProductDataSource.insertOrUpdateProduct(newProduct);
+            Log.d(TAG, "insertProduct: " +t);
         });
     }
-    public Completable insertProduct(final String productName,String description, long price) {
+
+    public Completable updateProductWithFbkey(final String id,String fbKey) {
         return new CompletableFromAction(() -> {
-           Product newProduct = new Product();
-           newProduct.setProductId(UUID.randomUUID().toString());
-           newProduct.setProductName(productName);
-           newProduct.setDescription(description);
-           newProduct.setProductPrice(price);
-            mProductDataSource.insertOrUpdateProduct(newProduct);
+            //Product updateProduct = new Product();
+            //updateProduct.setProductId(id);
+            //updateProduct.setFirebaseKey(fbKey);
+            mProductDataSource.updateProductFbKey(id,fbKey);
         });
     }
 }

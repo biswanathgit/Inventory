@@ -26,8 +26,18 @@ public class LocalProductDataSource implements ProductDataSource {
     }
 
     @Override
-    public void insertOrUpdateProduct(Product product) {
-        mProductDao.insertProduct(product);
+    public long insertOrUpdateProduct(Product product) {
+       return mProductDao.insertProduct(product);
+    }
+
+    @Override
+    public void updateProductFbKey(String pId, String fbkey) {
+        mProductDao.updateProductFbKey(pId, fbkey);
+    }
+
+    @Override
+    public void deleteProduct(String productId, String firebaseKey) {
+        mProductDao.deleteSingleProduct(productId,firebaseKey);
     }
 
     @Override

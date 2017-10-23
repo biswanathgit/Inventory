@@ -14,7 +14,14 @@ public interface ProductDataSource {
 
     Flowable<List<Product>> getAllProducts();
 
-    void insertOrUpdateProduct(Product product);
+    long insertOrUpdateProduct(Product product);
+
+    //update Firebase product key
+    void updateProductFbKey(String pId, String fbkey);
+
+    //delete product on product id or firebase key
+    void deleteProduct(String productId,String firebaseKey);
 
     void deleteAllProduct();
+
 }

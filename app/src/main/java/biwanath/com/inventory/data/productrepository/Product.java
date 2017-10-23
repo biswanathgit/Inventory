@@ -12,8 +12,9 @@ import java.util.UUID;
  */
 @Entity(tableName = "products")
 public class Product {
-    @PrimaryKey
+
     @NonNull
+    @PrimaryKey
     @ColumnInfo(name = "pid")
     private String productId;
 
@@ -26,7 +27,14 @@ public class Product {
     @ColumnInfo(name = "description")
     private String mDescription;
 
+    @ColumnInfo(name = "firebaseKey")
+    private String mFirebaseKey;
+
     public Product() {
+    }
+
+    public void setProductId(@NonNull String productId) {
+        this.productId = productId;
     }
 
     @NonNull
@@ -34,10 +42,6 @@ public class Product {
         return productId;
     }
 
-    public void setProductId(@NonNull String productId) {
-
-        this.productId = UUID.randomUUID().toString();
-    }
 
     public String getProductName() {
         return mProductName;
@@ -62,4 +66,13 @@ public class Product {
     public void setDescription(String mDescription) {
         this.mDescription = mDescription;
     }
+
+    public String getFirebaseKey() {
+        return mFirebaseKey;
+    }
+
+    public void setFirebaseKey(String mFirebaseKey) {
+        this.mFirebaseKey = mFirebaseKey;
+    }
+
 }
